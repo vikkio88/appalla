@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://p25mp7oigdfa"]
+[gd_scene load_steps=5 format=3 uid="uid://p25mp7oigdfa"]
 
 [ext_resource type="PackedScene" uid="uid://csgxhgdit8yaf" path="res://models/Pitch.tscn" id="1_1w71u"]
+[ext_resource type="Script" uid="uid://hvxe1yrp7yj7" path="res://scenes/match.gd" id="1_tte12"]
 [ext_resource type="PackedScene" uid="uid://bq5b1vqhu0asi" path="res://models/Player.tscn" id="2_d2rnv"]
+[ext_resource type="PackedScene" uid="uid://bw65aj61jo6am" path="res://models/Ball.tscn" id="3_d2rnv"]
 
 [node name="Match" type="Node2D"]
+script = ExtResource("1_tte12")
 
 [node name="Pitch" parent="." instance=ExtResource("1_1w71u")]
 position = Vector2(-1, -1)
 
 [node name="Player" parent="." instance=ExtResource("2_d2rnv")]
-position = Vector2(268, 204)
+position = Vector2(325, 254)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ball" parent="." instance=ExtResource("3_d2rnv")]
+position = Vector2(440, 246)
+scale = Vector2(0.5, 0.5)
