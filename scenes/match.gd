@@ -2,11 +2,10 @@ extends Node2D
 
 @onready var selected_player:Node2D = $Player;
 @onready var ball:Node2D = $Ball;
+@onready var camera:Camera2D = $MainCamera;
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	
 	if Input.is_action_just_released("Reset"):
 		ball.stop()
 		selected_player.stop()
