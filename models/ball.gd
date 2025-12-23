@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Ball
 
 const FRICTION := 1800.0
 const PUSH_FORCE := 700.0
@@ -9,31 +10,35 @@ var owner_position = null
 
 func stop():
 	velocity = Vector2.ZERO
+	
+func hold(holder: Player):
+	holder.stop()
+	velocity = Vector2.ZERO
+	owner_position = holder.global_position
+	pass
 
 func _on_detection_body_entered(body: Node2D) -> void:
 	if body.is_in_group("ball"):
 		return
 		
 	if body is Player:
-		var mouse_pos = get_global_mouse_position();
+		#var mouse_pos = get_global_mouse_position();
 		if body.target and body.target.distance_to(global_position) < NEARBY:
-			velocity = Vector2.ZERO
-			body.stop()
-			owner_position = body.global_position
+			print("holding")
+			hold(body)
 		elif body.velocity.length() > MIN_SPEED or (body.target and body.target.distance_to(global_position) > NEARBY):
-			var player_direction = -1 if body.target.x < global_position.x else 1
-			position = body.position + Vector2(player_direction * 5,0)
-			var direction :Vector2 = (mouse_pos - global_position).normalized()
-			#var direction = (body.target - global_position).normalized()
+			print("push")
+			#var x_multi = -1 if body.target.x < global_position.x else 1
+			#global_position = body.global_position + Vector2(x_multi * 5, 0)
+			#var direction :Vector2 = (mouse_pos - global_position).normalized()
+			var direction = (body.target - global_position).normalized()
 			var distance = global_position.distance_to(body.target)
-
 			var force = PUSH_FORCE
-
 			if distance < 100:
 				force *= 0.5
-
+			print("pushdir: ", direction)
+			print("pushforce: ", force)
 			velocity = direction * force
-
 			owner_position = null
 		else:
 			owner_position = null

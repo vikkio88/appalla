@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq5b1vqhu0asi"]
+[gd_scene load_steps=5 format=3 uid="uid://bq5b1vqhu0asi"]
 
 [ext_resource type="Script" uid="uid://bdiwsva8mkvjs" path="res://models/player.gd" id="1_1nmpv"]
 [ext_resource type="Texture2D" uid="uid://con5kedtocvel" path="res://assets/sprites/shirt.png" id="2_1nmpv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_31urc"]
 radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1nmpv"]
+radius = 25.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1nmpv")
@@ -14,3 +17,11 @@ texture = ExtResource("2_1nmpv")
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_31urc")
+
+[node name="BallPossession" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallPossession"]
+shape = SubResource("CircleShape2D_1nmpv")
+
+[connection signal="body_entered" from="BallPossession" to="." method="_on_ball_possession_body_entered"]
+[connection signal="body_exited" from="BallPossession" to="." method="_on_ball_possession_body_exited"]
