@@ -3,6 +3,8 @@ class_name Player
 
 @onready var sprite := $sprite
 
+@export var number: int = 0
+
 const MAX_SPEED := 200.0
 const TARGET_NEARBY := 20.0
 const ACCEL := 400.0
@@ -10,11 +12,19 @@ const PUSH_FORCE := 700.0
 const POSSESSION_DISTANCE = 15.0
 
 var target = null
-var ball:Ball
+var ball: Ball
+
 
 func stop():
 	velocity = Vector2.ZERO
 	target = null
+
+
+func shoot():
+	if !ball:
+		return
+	print("shooting")
+
 
 func push(towards: Vector2):
 	if ball:
@@ -22,8 +32,9 @@ func push(towards: Vector2):
 		var distance = global_position.distance_to(towards)
 		var force = PUSH_FORCE
 		if distance < 100:
-				force *= 0.5
+			force *= 0.5
 		ball.push(direction, force)
+
 
 func select_target(new_target: Vector2):
 	if ball:
@@ -32,13 +43,13 @@ func select_target(new_target: Vector2):
 
 
 func _physics_process(_delta: float) -> void:
-	var is_target_nearby = target and target.distance_to(global_position) <= TARGET_NEARBY;
+	var is_target_nearby = target and target.distance_to(global_position) <= TARGET_NEARBY
 	if is_target_nearby:
 		stop()
-		
+
 	if ball and target == null:
 		var mouse_pos = get_global_mouse_position()
-		var dir :Vector2= (mouse_pos - global_position).normalized()
+		var dir: Vector2 = (mouse_pos - global_position).normalized()
 		ball.global_position = global_position + dir * POSSESSION_DISTANCE
 	if target and not is_target_nearby:
 		var direction = (target - global_position).normalized()
@@ -51,7 +62,11 @@ func _physics_process(_delta: float) -> void:
 func _on_ball_possession_body_entered(body: Node2D) -> void:
 	if body is Ball:
 		ball = body
-		if target == null or target.distance_to(ball.global_position) < 15 or target.distance_to(global_position) < TARGET_NEARBY:
+		if (
+			target == null
+			or target.distance_to(ball.global_position) < 15
+			or target.distance_to(global_position) < TARGET_NEARBY
+		):
 			stop()
 			ball.stop()
 		else:

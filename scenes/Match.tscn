@@ -11,8 +11,14 @@ script = ExtResource("1_tte12")
 [node name="Pitch" parent="." instance=ExtResource("1_1w71u")]
 position = Vector2(-1, -1)
 
-[node name="Player" parent="." instance=ExtResource("2_d2rnv")]
+[node name="Home" type="Node" parent="."]
+
+[node name="Player" parent="Home" instance=ExtResource("2_d2rnv")]
 position = Vector2(325, 254)
+scale = Vector2(0.5, 0.5)
+
+[node name="Player2" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(768, 403)
 scale = Vector2(0.5, 0.5)
 
 [node name="Ball" parent="." instance=ExtResource("3_d2rnv")]

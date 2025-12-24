@@ -5,12 +5,15 @@ const FRICTION := 1800.0
 const MIN_SPEED := 20.0
 const NEARBY := 30.0
 
+
 func stop():
 	velocity = Vector2.ZERO
 
+
 func push(direction: Vector2, force: float):
 	velocity = direction * force
-	
+
+
 func _physics_process(delta: float) -> void:
 	if velocity.length() > 0.0:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
