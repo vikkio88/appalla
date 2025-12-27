@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @onready var sprite := $sprite
+@onready var shirtNumber = $ShirtNumber
 
 @export var number: int = 0
 
@@ -14,11 +15,12 @@ const POSSESSION_DISTANCE = 15.0
 var target = null
 var ball: Ball
 
+func _ready() -> void:
+	shirtNumber.text = "%s" % number
 
 func stop():
 	velocity = Vector2.ZERO
 	target = null
-
 
 func shoot():
 	if !ball:
@@ -62,6 +64,7 @@ func _physics_process(_delta: float) -> void:
 func _on_ball_possession_body_entered(body: Node2D) -> void:
 	if body is Ball:
 		ball = body
+		EventBus.ball_possession_change.emit(self)
 		if (
 			target == null
 			or target.distance_to(ball.global_position) < 15
@@ -76,3 +79,4 @@ func _on_ball_possession_body_entered(body: Node2D) -> void:
 func _on_ball_possession_body_exited(body: Node2D) -> void:
 	if body is Ball:
 		ball = null
+		#self.stop() need a way to stop if changing ownership

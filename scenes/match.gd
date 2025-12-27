@@ -6,6 +6,13 @@ extends Node2D
 var hold_counter: float = 0
 @export var long_click: float = .40
 
+func _ready() -> void:
+	EventBus.ball_possession_change.connect(self.ball_p)
+
+func ball_p(player: Player):
+	print("%s has the ball" %[player.number])
+	selected_player = player
+
 
 func was_long_click() -> bool:
 	var result = hold_counter >= long_click

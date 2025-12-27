@@ -16,6 +16,7 @@ position = Vector2(-1, -1)
 [node name="Player" parent="Home" instance=ExtResource("2_d2rnv")]
 position = Vector2(325, 254)
 scale = Vector2(0.5, 0.5)
+number = 10
 
 [node name="Player2" parent="Home" instance=ExtResource("2_d2rnv")]
 position = Vector2(768, 403)

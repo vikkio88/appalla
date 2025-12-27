@@ -11,6 +11,7 @@ radius = 40.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_1nmpv")
+number = 11
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_1nmpv")
@@ -22,6 +23,17 @@ shape = SubResource("CircleShape2D_31urc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallPossession"]
 shape = SubResource("CircleShape2D_1nmpv")
+
+[node name="ShirtNumber" type="Label" parent="."]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="BallPossession" to="." method="_on_ball_possession_body_entered"]
 [connection signal="body_exited" from="BallPossession" to="." method="_on_ball_possession_body_exited"]
