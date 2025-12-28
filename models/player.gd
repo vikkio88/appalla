@@ -10,6 +10,7 @@ const MAX_SPEED := 200.0
 const TARGET_NEARBY := 20.0
 const ACCEL := 400.0
 const PUSH_FORCE := 700.0
+const SHOOTING_FORCE := 1100.0
 const POSSESSION_DISTANCE = 15.0
 
 var target = null
@@ -28,7 +29,9 @@ func stop():
 func shoot():
 	if !ball:
 		return
-	print("shooting")
+	var mouse_pos = get_global_mouse_position()
+	var dir: Vector2 = (mouse_pos - global_position).normalized()
+	ball.shoot(dir, SHOOTING_FORCE)
 
 
 func push(towards: Vector2):

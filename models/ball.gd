@@ -13,6 +13,8 @@ func stop():
 func push(direction: Vector2, force: float):
 	velocity = direction * force
 
+func shoot(direction: Vector2, force: float):
+	velocity = direction * force
 
 func _physics_process(delta: float) -> void:
 	if velocity.length() > 0.0:
