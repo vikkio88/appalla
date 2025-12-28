@@ -17,6 +17,9 @@ var ball: Ball
 
 func _ready() -> void:
 	shirtNumber.text = "%s" % number
+	
+func is_same(other:Player)-> bool:
+	return self.number == other.number
 
 func stop():
 	velocity = Vector2.ZERO
@@ -79,4 +82,3 @@ func _on_ball_possession_body_entered(body: Node2D) -> void:
 func _on_ball_possession_body_exited(body: Node2D) -> void:
 	if body is Ball:
 		ball = null
-		#self.stop() need a way to stop if changing ownership

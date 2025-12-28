@@ -10,6 +10,8 @@ func _ready() -> void:
 	EventBus.ball_possession_change.connect(self.ball_p)
 
 func ball_p(player: Player):
+	if selected_player and not selected_player.is_same(player):
+		selected_player.stop()
 	print("%s has the ball" %[player.number])
 	selected_player = player
 
