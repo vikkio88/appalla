@@ -10,28 +10,32 @@ const MAX_SPEED := 200.0
 const TARGET_NEARBY := 20.0
 const ACCEL := 400.0
 const PUSH_FORCE := 700.0
-const SHOOTING_FORCE := 1100.0
+const SHOOTING_FORCE := 1800.0
 const POSSESSION_DISTANCE = 15.0
 
 var target = null
 var ball: Ball
 
+
 func _ready() -> void:
 	shirtNumber.text = "%s" % number
-	
-func is_same(other:Player)-> bool:
+
+
+func is_same(other: Player) -> bool:
 	return self.number == other.number
+
 
 func stop():
 	velocity = Vector2.ZERO
 	target = null
 
-func shoot():
+
+func shoot(strenght: float):
 	if !ball:
 		return
 	var mouse_pos = get_global_mouse_position()
 	var dir: Vector2 = (mouse_pos - global_position).normalized()
-	ball.shoot(dir, SHOOTING_FORCE)
+	ball.shoot(dir, SHOOTING_FORCE * strenght)
 
 
 func push(towards: Vector2):
