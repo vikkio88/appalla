@@ -37,3 +37,4 @@ vertical_alignment = 1
 
 [connection signal="body_entered" from="BallPossession" to="." method="_on_ball_possession_body_entered"]
 [connection signal="body_exited" from="BallPossession" to="." method="_on_ball_possession_body_exited"]
+[connection signal="input_event" from="BallPossession" to="." method="_on_ball_possession_input_event"]

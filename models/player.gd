@@ -7,7 +7,7 @@ class_name Player
 @export var number: int = 0
 
 const MAX_SPEED := 200.0
-const TARGET_NEARBY := 20.0
+const TARGET_NEARBY := 15.0
 const ACCEL := 400.0
 const PUSH_FORCE := 700.0
 const SHOOTING_FORCE := 1800.0
@@ -23,6 +23,10 @@ func _ready() -> void:
 
 func is_same(other: Player) -> bool:
 	return self.number == other.number
+
+
+func has_ball() -> bool:
+	return ball != null
 
 
 func stop():
@@ -89,3 +93,8 @@ func _on_ball_possession_body_entered(body: Node2D) -> void:
 func _on_ball_possession_body_exited(body: Node2D) -> void:
 	if body is Ball:
 		ball = null
+
+
+func _on_ball_possession_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("Click"):
+		EventBus.clicked_player.emit(self)

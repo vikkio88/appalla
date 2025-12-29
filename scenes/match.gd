@@ -8,12 +8,23 @@ var hold_counter: float = 0
 @export var long_click: float = .20
 @export var max_long_click: float = 0.70
 
+var switched_player = false
+
 
 func _ready() -> void:
-	EventBus.ball_possession_change.connect(self.ball_p)
+	EventBus.ball_possession_change.connect(self.ball_possession_changed)
+	EventBus.clicked_player.connect(self.player_was_clicked)
 
 
-func ball_p(player: Player):
+func player_was_clicked(player: Player):
+	print("clicked %s" % player.number)
+	if selected_player and selected_player.has_ball():
+		return
+	switched_player = true
+	selected_player = player
+
+
+func ball_possession_changed(player: Player):
 	if selected_player and not selected_player.is_same(player):
 		selected_player.stop()
 	print("%s has the ball" % [player.number])
@@ -26,11 +37,20 @@ func was_long_click() -> bool:
 	return result
 
 
+func can_shoot() -> bool:
+	return (
+		selected_player
+		and selected_player.has_ball()
+		and hold_counter >= long_click
+		and not switched_player
+	)
+
+
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("Click"):
 		hold_counter += delta
 
-	if hold_counter >= long_click:
+	if can_shoot():
 		charger.visible = true
 		charger.value = clamp(hold_counter / max_long_click * 100, 10, 100.0)
 		if selected_player:
@@ -43,9 +63,13 @@ func _process(delta: float) -> void:
 		selected_player.position = Vector2(450, 100)
 
 	if Input.is_action_just_released("Click"):
+		if switched_player:
+			switched_player = false
+			return
 		charger.visible = false
 		charger.value = 0
 		var held_counter = hold_counter
+#		Handle here whether long click whilst not having the ball
 		if not was_long_click() and selected_player:
 			move_action()
 		else:
