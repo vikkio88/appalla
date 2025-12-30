@@ -14,6 +14,14 @@ var switched_player = false
 func _ready() -> void:
 	EventBus.ball_possession_change.connect(self.ball_possession_changed)
 	EventBus.clicked_player.connect(self.player_was_clicked)
+	select_player($Home/Player as Player)
+
+
+func select_player(player: Player):
+	if selected_player:
+		selected_player.is_selected = false
+	selected_player = player
+	player.is_selected = true
 
 
 func player_was_clicked(player: Player):
@@ -21,14 +29,14 @@ func player_was_clicked(player: Player):
 	if selected_player and selected_player.has_ball():
 		return
 	switched_player = true
-	selected_player = player
+	select_player(player)
 
 
 func ball_possession_changed(player: Player):
 	if selected_player and not selected_player.is_same(player):
 		selected_player.stop()
 	print("%s has the ball" % [player.number])
-	selected_player = player
+	select_player(player)
 
 
 func was_long_click() -> bool:
@@ -37,30 +45,29 @@ func was_long_click() -> bool:
 	return result
 
 
+func is_trying_to_shoot() -> bool:
+	return hold_counter >= long_click and can_shoot()
+
+
 func can_shoot() -> bool:
-	return (
-		selected_player
-		and selected_player.has_ball()
-		and hold_counter >= long_click
-		and not switched_player
-	)
+	return selected_player and selected_player.has_ball() and not switched_player
 
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("Click"):
 		hold_counter += delta
 
-	if can_shoot():
-		charger.visible = true
-		charger.value = clamp(hold_counter / max_long_click * 100, 10, 100.0)
-		if selected_player:
-			charger.global_position = selected_player.global_position + Vector2(0, 30)
-
 	if Input.is_action_just_released("Reset"):
 		ball.stop()
 		selected_player.stop()
 		ball.position = Vector2(450, 250)
 		selected_player.position = Vector2(450, 100)
+
+	if is_trying_to_shoot():
+		charger.visible = true
+		charger.value = clamp(hold_counter / max_long_click * 100, 10, 100.0)
+		if selected_player:
+			charger.global_position = selected_player.global_position + Vector2(0, 30)
 
 	if Input.is_action_just_released("Click"):
 		if switched_player:
@@ -69,8 +76,8 @@ func _process(delta: float) -> void:
 		charger.visible = false
 		charger.value = 0
 		var held_counter = hold_counter
-#		Handle here whether long click whilst not having the ball
-		if not was_long_click() and selected_player:
+		var was_long = was_long_click()
+		if (not was_long and selected_player) or (was_long and not can_shoot()):
 			move_action()
 		else:
 			var t: float = clamp(held_counter / max_long_click, 0.0, 1.0)

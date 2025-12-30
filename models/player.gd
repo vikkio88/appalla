@@ -2,7 +2,8 @@ extends CharacterBody2D
 class_name Player
 
 @onready var sprite := $sprite
-@onready var shirtNumber = $ShirtNumber
+@onready var shirt_number = $shirt_number
+@onready var select_indicator = $select_indicator
 
 @export var number: int = 0
 
@@ -13,12 +14,18 @@ const PUSH_FORCE := 700.0
 const SHOOTING_FORCE := 1800.0
 const POSSESSION_DISTANCE = 15.0
 
+var is_selected := false:
+	set(new_value):
+		is_selected = new_value
+		select_indicator.visible = new_value
+	get:
+		return is_selected
 var target = null
 var ball: Ball
 
 
 func _ready() -> void:
-	shirtNumber.text = "%s" % number
+	shirt_number.text = "%s" % number
 
 
 func is_same(other: Player) -> bool:
