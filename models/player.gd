@@ -48,7 +48,7 @@ func shoot(strenght: float):
 		return
 	var mouse_pos = get_global_mouse_position()
 	var dir: Vector2 = (mouse_pos - global_position).normalized()
-	ball.shoot(dir, SHOOTING_FORCE * strenght)
+	ball.shoot(dir, SHOOTING_FORCE * strenght, self)
 
 
 func push(towards: Vector2):
@@ -58,7 +58,7 @@ func push(towards: Vector2):
 		var force = PUSH_FORCE
 		if distance < 100:
 			force *= 0.5
-		ball.push(direction, force)
+		ball.push(direction, force, self)
 
 
 func select_target(new_target: Vector2):

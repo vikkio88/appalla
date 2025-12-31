@@ -14,7 +14,14 @@ var switched_player = false
 func _ready() -> void:
 	EventBus.ball_possession_change.connect(self.ball_possession_changed)
 	EventBus.clicked_player.connect(self.player_was_clicked)
+	EventBus.scored_away_goal.connect(func(player:Player): goal(player, Enums.TeamSide.Away))
+	EventBus.scored_home_goal.connect(func(player:Player): goal(player, Enums.TeamSide.Home))
 	select_player($Home/Player as Player)
+	
+
+func goal(player: Player, side: Enums.TeamSide):
+	print_debug("goal! side: %s player: %s" % [side, player.number])
+	ball.global_position = Vector2(450, 250)
 
 
 func select_player(player: Player):

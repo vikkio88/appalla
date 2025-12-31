@@ -5,17 +5,21 @@ const FRICTION := 1800.0
 const MIN_SPEED := 20.0
 const NEARBY := 30.0
 
+var last_touched_by: Player
+
 
 func stop():
 	velocity = Vector2.ZERO
 
 
-func push(direction: Vector2, force: float):
+func push(direction: Vector2, force: float, player: Player):
 	velocity = direction * force
+	last_touched_by = player
 
 
-func shoot(direction: Vector2, force: float):
+func shoot(direction: Vector2, force: float, player: Player):
 	velocity = direction * force
+	last_touched_by = player
 
 
 func _physics_process(delta: float) -> void:
