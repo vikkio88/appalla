@@ -32,6 +32,7 @@ position = Vector2(440, 246)
 scale = Vector2(0.5, 0.5)
 
 [node name="charger" type="ProgressBar" parent="."]
+visible = false
 offset_left = -25.0
 offset_top = 1.0
 offset_right = 25.0

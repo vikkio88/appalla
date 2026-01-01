@@ -3,11 +3,16 @@ extends Node2D
 @onready var selected_player: Player = $Home/Player
 @onready var ball: Node2D = $Ball
 @onready var charger: ProgressBar = $charger
+@onready var pitch_sides = {
+	Enums.TeamSide.Home: $Home.get_children(),
+	Enums.TeamSide.Away: $Away.get_children()
+}
 #@onready var camera:Camera2D = $MainCamera;
 var hold_counter: float = 0
 @export var long_click: float = .20
 @export var max_long_click: float = 0.70
 
+var user_side = Enums.TeamSide.Home
 var switched_player = false
 
 
@@ -23,13 +28,29 @@ func goal(player: Player, side: Enums.TeamSide):
 	print_debug("goal! side: %s player: %s" % [side, player.number])
 	ball.global_position = Vector2(450, 250)
 
+func select_next_player():
+	var players = pitch_sides[user_side] as Array[Player]
+	var ball_position: Vector2 = ball.global_position
+
+	var closest: Player = null
+	var closest_dist := INF
+
+	for pl: Player in players:
+		if pl.is_same(selected_player):
+			continue
+		var dist := pl.global_position.distance_squared_to(ball_position)
+		if dist < closest_dist:
+			closest_dist = dist
+			closest = pl
+	select_player(closest)
+
+		
 
 func select_player(player: Player):
 	if selected_player:
 		selected_player.is_selected = false
 	selected_player = player
 	player.is_selected = true
-
 
 func player_was_clicked(player: Player):
 	print("clicked %s" % player.number)
@@ -63,6 +84,11 @@ func can_shoot() -> bool:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("Click"):
 		hold_counter += delta
+	
+	if Input.is_action_just_released("S") and selected_player:
+		if not selected_player.has_ball():
+			select_next_player()
+		
 
 	if Input.is_action_just_released("Reset"):
 		ball.stop()
