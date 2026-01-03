@@ -18,12 +18,27 @@ position = Vector2(-1, -1)
 
 [node name="Player" parent="Home" instance=ExtResource("2_d2rnv")]
 position = Vector2(325, 254)
-scale = Vector2(0.5, 0.5)
-number = 10
+number = 5
 
 [node name="Player2" parent="Home" instance=ExtResource("2_d2rnv")]
 position = Vector2(768, 403)
-scale = Vector2(0.5, 0.5)
+number = 6
+
+[node name="Player3" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(210, 541)
+number = 7
+
+[node name="Player4" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(455, 532)
+number = 8
+
+[node name="Player5" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(114, 612)
+number = 9
+
+[node name="Player6" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(388, 449)
+number = 10
 
 [node name="Away" type="Node" parent="."]
 
