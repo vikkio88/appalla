@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://p25mp7oigdfa"]
+[gd_scene load_steps=7 format=3 uid="uid://p25mp7oigdfa"]
 
-[ext_resource type="PackedScene" uid="uid://csgxhgdit8yaf" path="res://models/Pitch.tscn" id="1_1w71u"]
+[ext_resource type="PackedScene" uid="uid://csgxhgdit8yaf" path="res://models/pitch/Pitch.tscn" id="1_1w71u"]
 [ext_resource type="Script" uid="uid://hvxe1yrp7yj7" path="res://scenes/match.gd" id="1_tte12"]
-[ext_resource type="PackedScene" uid="uid://bq5b1vqhu0asi" path="res://models/Player.tscn" id="2_d2rnv"]
-[ext_resource type="PackedScene" uid="uid://bw65aj61jo6am" path="res://models/Ball.tscn" id="3_d2rnv"]
+[ext_resource type="PackedScene" uid="uid://bq5b1vqhu0asi" path="res://models/actors/players/Player.tscn" id="2_d2rnv"]
+[ext_resource type="PackedScene" uid="uid://bw65aj61jo6am" path="res://models/actors/Ball.tscn" id="3_d2rnv"]
+[ext_resource type="PackedScene" uid="uid://dtfyotn5178ty" path="res://utils/MainCamera.tscn" id="5_y3yhn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tte12"]
 bg_color = Color(0.6812244, 0.6155172, 0.069222584, 1)
@@ -12,7 +13,6 @@ bg_color = Color(0.6812244, 0.6155172, 0.069222584, 1)
 script = ExtResource("1_tte12")
 
 [node name="Pitch" parent="." instance=ExtResource("1_1w71u")]
-position = Vector2(-1, -1)
 
 [node name="Home" type="Node" parent="."]
 
@@ -45,6 +45,9 @@ number = 10
 [node name="Ball" parent="." instance=ExtResource("3_d2rnv")]
 position = Vector2(440, 246)
 scale = Vector2(0.5, 0.5)
+
+[node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_y3yhn")]
+target = NodePath("../Ball")
 
 [node name="charger" type="ProgressBar" parent="."]
 visible = false

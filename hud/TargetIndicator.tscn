@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2pjkrb881u38"]
 
-[ext_resource type="Script" uid="uid://bjtjapvgevkt" path="res://utils/target_indicator.gd" id="1_n2s6y"]
+[ext_resource type="Script" uid="uid://bjtjapvgevkt" path="res://hud/target_indicator.gd" id="1_n2s6y"]
 
 [node name="TargetIndicator" type="Node2D"]
 script = ExtResource("1_n2s6y")

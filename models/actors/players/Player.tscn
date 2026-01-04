@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bq5b1vqhu0asi"]
 
-[ext_resource type="Script" uid="uid://bdiwsva8mkvjs" path="res://models/player.gd" id="1_1nmpv"]
-[ext_resource type="Texture2D" uid="uid://con5kedtocvel" path="res://assets/sprites/shirt.png" id="2_1nmpv"]
-[ext_resource type="Texture2D" uid="uid://v5ie3yvh0v4s" path="res://assets/sprites/player_select.png" id="3_31urc"]
+[ext_resource type="Script" uid="uid://bdiwsva8mkvjs" path="res://models/actors/players/player.gd" id="1_1nmpv"]
+[ext_resource type="Texture2D" uid="uid://con5kedtocvel" path="res://models/actors/players/sprites/shirt.png" id="2_1nmpv"]
+[ext_resource type="Texture2D" uid="uid://v5ie3yvh0v4s" path="res://models/actors/players/sprites/player_select.png" id="3_31urc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_31urc"]
 radius = 17.0

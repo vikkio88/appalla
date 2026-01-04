@@ -7,7 +7,7 @@ extends Node2D
 	Enums.TeamSide.Home: $Home.get_children(),
 	Enums.TeamSide.Away: $Away.get_children()
 }
-#@onready var camera:Camera2D = $MainCamera;
+@onready var camera:Camera2D = $MainCamera;
 var hold_counter: float = 0
 @export var long_click: float = .20
 @export var max_long_click: float = 0.70

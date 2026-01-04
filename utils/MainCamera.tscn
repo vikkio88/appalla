@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dycq1vjxxinu4" path="res://utils/main_camera.gd" id="1_2mpi7"]
 
-[node name="MainCamera" type="Camera2D" node_paths=PackedStringArray("target")]
+[node name="MainCamera" type="Camera2D"]
+zoom = Vector2(1.2, 1.2)
 script = ExtResource("1_2mpi7")
-target = NodePath("")
