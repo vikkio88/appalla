@@ -43,10 +43,12 @@ number = 10
 [node name="Away" type="Node" parent="."]
 
 [node name="Ball" parent="." instance=ExtResource("3_d2rnv")]
-position = Vector2(440, 246)
+position = Vector2(607, 355)
 scale = Vector2(0.5, 0.5)
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_y3yhn")]
+position = Vector2(383, 339)
+zoom = Vector2(1, 1)
 target = NodePath("../Ball")
 
 [node name="charger" type="ProgressBar" parent="."]

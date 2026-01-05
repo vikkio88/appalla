@@ -1,7 +1,4 @@
 extends Node
 class_name Enums
 
-enum TeamSide {
-	Home,
-	Away
-}
+enum TeamSide { Home, Away }

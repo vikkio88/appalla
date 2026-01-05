@@ -1,13 +1,14 @@
 extends CharacterBody2D
 class_name Player
 
-
 @onready var shirt_number = $shirt_number
 @onready var sprite := $sprite
 @onready var select_indicator = $select_indicator
 
 @export var number: int = 0
 @export var team: Enums.TeamSide = Enums.TeamSide.Home
+@export var defense_position: Vector2 = Vector2.ZERO
+@export var attack_position: Vector2 = Vector2.ZERO
 
 const MAX_SPEED := 200.0
 const TARGET_NEARBY := 15.0

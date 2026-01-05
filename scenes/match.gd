@@ -1,13 +1,14 @@
 extends Node2D
 
+const CENTER = Vector2(607, 355)
+
 @onready var selected_player: Player = $Home/Player
 @onready var ball: Node2D = $Ball
 @onready var charger: ProgressBar = $charger
 @onready var pitch_sides = {
-	Enums.TeamSide.Home: $Home.get_children(),
-	Enums.TeamSide.Away: $Away.get_children()
+	Enums.TeamSide.Home: $Home.get_children(), Enums.TeamSide.Away: $Away.get_children()
 }
-@onready var camera:Camera2D = $MainCamera;
+@onready var camera: Camera2D = $MainCamera
 var hold_counter: float = 0
 @export var long_click: float = .20
 @export var max_long_click: float = 0.70
@@ -19,14 +20,15 @@ var switched_player = false
 func _ready() -> void:
 	EventBus.ball_possession_change.connect(self.ball_possession_changed)
 	EventBus.clicked_player.connect(self.player_was_clicked)
-	EventBus.scored_away_goal.connect(func(player:Player): goal(player, Enums.TeamSide.Away))
-	EventBus.scored_home_goal.connect(func(player:Player): goal(player, Enums.TeamSide.Home))
+	EventBus.scored_away_goal.connect(func(player: Player): goal(player, Enums.TeamSide.Away))
+	EventBus.scored_home_goal.connect(func(player: Player): goal(player, Enums.TeamSide.Home))
 	select_player($Home/Player as Player)
-	
+
 
 func goal(player: Player, side: Enums.TeamSide):
 	print_debug("goal! side: %s player: %s" % [side, player.number])
-	ball.global_position = Vector2(450, 250)
+	ball.global_position = CENTER
+
 
 func select_next_player():
 	var players = pitch_sides[user_side] as Array[Player]
@@ -44,13 +46,13 @@ func select_next_player():
 			closest = pl
 	select_player(closest)
 
-		
 
 func select_player(player: Player):
 	if selected_player:
 		selected_player.is_selected = false
 	selected_player = player
 	player.is_selected = true
+
 
 func player_was_clicked(player: Player):
 	print("clicked %s" % player.number)
@@ -84,11 +86,10 @@ func can_shoot() -> bool:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("Click"):
 		hold_counter += delta
-	
+
 	if Input.is_action_just_released("S") and selected_player:
 		if not selected_player.has_ball():
 			select_next_player()
-		
 
 	if Input.is_action_just_released("Reset"):
 		ball.stop()
