@@ -16,29 +16,41 @@ script = ExtResource("1_tte12")
 
 [node name="Home" type="Node" parent="."]
 
-[node name="Player" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(325, 254)
+[node name="2" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(216, 402)
+number = 2
+defense_position = Vector2(216, 400)
+attack_position = Vector2(400, 450)
+
+[node name="5" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(258, 242)
 number = 5
+defense_position = Vector2(250, 240)
+attack_position = Vector2(400, 180)
 
-[node name="Player2" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(768, 403)
-number = 6
-
-[node name="Player3" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(210, 541)
+[node name="7" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(524, 83)
 number = 7
+defense_position = Vector2(460, 160)
+attack_position = Vector2(1010, 80)
 
-[node name="Player4" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(455, 532)
+[node name="8" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(421, 332)
 number = 8
+defense_position = Vector2(450, 335)
+attack_position = Vector2(670, 335)
 
-[node name="Player5" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(114, 612)
+[node name="9" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(487, 559)
 number = 9
+defense_position = Vector2(470, 490)
+attack_position = Vector2(990, 525)
 
-[node name="Player6" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(388, 449)
+[node name="10" parent="Home" instance=ExtResource("2_d2rnv")]
+position = Vector2(549, 352)
 number = 10
+defense_position = Vector2(550, 350)
+attack_position = Vector2(1045, 345)
 
 [node name="Away" type="Node" parent="."]
 
@@ -48,7 +60,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_y3yhn")]
 position = Vector2(383, 339)
-zoom = Vector2(1, 1)
+zoom = Vector2(2, 2)
 target = NodePath("../Ball")
 
 [node name="charger" type="ProgressBar" parent="."]
@@ -60,3 +72,9 @@ offset_bottom = 11.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_tte12")
 rounded = true
 show_percentage = false
+
+[node name="tick" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]

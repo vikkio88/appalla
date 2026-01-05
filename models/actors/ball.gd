@@ -15,11 +15,13 @@ func stop():
 func push(direction: Vector2, force: float, player: Player):
 	velocity = direction * force
 	last_touched_by = player
+	#EventBus.ball_possession_change.emit(null)
 
 
 func shoot(direction: Vector2, force: float, player: Player):
 	velocity = direction * force
 	last_touched_by = player
+	#EventBus.ball_possession_change.emit(null)
 
 
 func _physics_process(delta: float) -> void:
