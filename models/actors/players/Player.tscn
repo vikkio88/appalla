@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq5b1vqhu0asi"]
+[gd_scene load_steps=6 format=3 uid="uid://bq5b1vqhu0asi"]
 
 [ext_resource type="Script" uid="uid://bdiwsva8mkvjs" path="res://models/actors/players/player.gd" id="1_1nmpv"]
 [ext_resource type="Texture2D" uid="uid://b85xaw06w23q5" path="res://models/actors/players/sprites/shirt.png" id="2_1nmpv"]
@@ -9,12 +9,6 @@ radius = 17.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1nmpv"]
 radius = 40.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_eluw5"]
-radius = 56.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_87843"]
-radius = 150.0
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -52,22 +46,7 @@ texture = ExtResource("3_31urc")
 [node name="tick" type="Timer" parent="."]
 autostart = true
 
-[node name="Nearby" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Nearby"]
-shape = SubResource("CircleShape2D_eluw5")
-debug_color = Color(0.9622175, 0.06508561, 0.4672268, 0.41960785)
-
-[node name="Zone" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone"]
-shape = SubResource("CircleShape2D_87843")
-
 [connection signal="body_entered" from="BallPossession" to="." method="_on_ball_possession_body_entered"]
 [connection signal="body_exited" from="BallPossession" to="." method="_on_ball_possession_body_exited"]
 [connection signal="input_event" from="BallPossession" to="." method="_on_ball_possession_input_event"]
 [connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]
-[connection signal="body_entered" from="Nearby" to="." method="_on_nearby_body_entered"]
-[connection signal="body_exited" from="Nearby" to="." method="_on_nearby_body_exited"]
-[connection signal="body_entered" from="Zone" to="." method="_on_zone_body_entered"]
-[connection signal="body_exited" from="Zone" to="." method="_on_zone_body_exited"]

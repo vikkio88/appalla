@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://csgxhgdit8yaf" path="res://models/pitch/Pitch.tscn" id="1_1w71u"]
 [ext_resource type="Script" uid="uid://hvxe1yrp7yj7" path="res://scenes/match.gd" id="1_tte12"]
-[ext_resource type="PackedScene" uid="uid://bq5b1vqhu0asi" path="res://models/actors/players/Player.tscn" id="2_d2rnv"]
 [ext_resource type="PackedScene" uid="uid://bw65aj61jo6am" path="res://models/actors/Ball.tscn" id="3_d2rnv"]
+[ext_resource type="PackedScene" uid="uid://vy8rn5diyeev" path="res://models/Team.tscn" id="3_y3yhn"]
 [ext_resource type="PackedScene" uid="uid://dtfyotn5178ty" path="res://utils/MainCamera.tscn" id="5_y3yhn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tte12"]
@@ -14,43 +14,7 @@ script = ExtResource("1_tte12")
 
 [node name="Pitch" parent="." instance=ExtResource("1_1w71u")]
 
-[node name="Home" type="Node" parent="."]
-
-[node name="2" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(216, 402)
-number = 2
-defense_position = Vector2(216, 400)
-attack_position = Vector2(400, 450)
-
-[node name="5" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(258, 242)
-number = 5
-defense_position = Vector2(250, 240)
-attack_position = Vector2(400, 180)
-
-[node name="7" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(524, 83)
-number = 7
-defense_position = Vector2(460, 160)
-attack_position = Vector2(1010, 80)
-
-[node name="8" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(421, 332)
-number = 8
-defense_position = Vector2(450, 335)
-attack_position = Vector2(670, 335)
-
-[node name="9" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(487, 559)
-number = 9
-defense_position = Vector2(470, 490)
-attack_position = Vector2(990, 525)
-
-[node name="10" parent="Home" instance=ExtResource("2_d2rnv")]
-position = Vector2(549, 352)
-number = 10
-defense_position = Vector2(550, 350)
-attack_position = Vector2(1045, 345)
+[node name="Home" parent="." instance=ExtResource("3_y3yhn")]
 
 [node name="Away" type="Node" parent="."]
 
@@ -60,7 +24,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_y3yhn")]
 position = Vector2(383, 339)
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 target = NodePath("../Ball")
 
 [node name="charger" type="ProgressBar" parent="."]

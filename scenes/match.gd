@@ -4,7 +4,7 @@ extends Node2D
 @onready var ball: Node2D = $Ball
 @onready var charger: ProgressBar = $charger
 @onready var pitch_sides = {
-	Enums.TeamSide.Home: $Home.get_children(), Enums.TeamSide.Away: $Away.get_children()
+	Enums.TeamSide.Home: $Home, Enums.TeamSide.Away: $Away.get_children()
 }
 @onready var camera: Camera2D = $MainCamera
 var hold_counter: float = 0
@@ -18,30 +18,20 @@ func _ready() -> void:
 	EventBus.clicked_player.connect(self.player_was_clicked)
 	EventBus.scored_away_goal.connect(func(player: Player): goal(player, Enums.TeamSide.Away))
 	EventBus.scored_home_goal.connect(func(player: Player): goal(player, Enums.TeamSide.Home))
-	select_player($"Home/8" as Player)
+	select_player(get_user_team().closest_player(selected_player, ball.global_position) as Player)
 
 
 func goal(player: Player, side: Enums.TeamSide):
 	print_debug("goal! side: %s player: %s" % [side, player.number])
 	ball.global_position = Vars.CENTER
-
-func closest_player(players: Array, ball_position: Vector2) -> Player:
-	var closest: Player = null
-	var closest_dist := INF
-
-	for pl: Player in players:
-		if pl.is_same(selected_player):
-			continue
-		var dist := pl.global_position.distance_squared_to(ball_position)
-		if dist < closest_dist:
-			closest_dist = dist
-			closest = pl
-	return closest
+	
+func get_user_team() -> Team:
+	return pitch_sides[MatchState.user_side] as Team;
 
 func select_next_player():
-	var players = pitch_sides[MatchState.user_side] as Array[Player]
+	var user_team = get_user_team()
 	var ball_position: Vector2 = ball.global_position
-	select_player(closest_player(players, ball_position))
+	select_player(user_team.closest_player(selected_player, ball_position))
 
 
 func select_player(player: Player):
@@ -124,18 +114,7 @@ func move_action():
 	t.draw(pos)
 	add_child(t)
 
-var previous_chaser: Player
 func _on_tick_timeout() -> void:
 	var ball_pos = ball.global_position
 	MatchState.ball_position = ball_pos
-	#var home = closest_player(pitch_sides[Enums.TeamSide.Home], ball_pos)
-	#if previous_chaser and home.is_same(previous_chaser):
-		#return
-	#if home and not home.is_selected:
-		#if previous_chaser:
-			#previous_chaser.decision = Ai.Decision.Wait
-			#previous_chaser.stop()
-		#previous_chaser = home
-		#home.decision = Ai.Decision.ChaseBall
-		#home.target = ball_pos
 	

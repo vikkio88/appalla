@@ -37,7 +37,7 @@ func _ready() -> void:
 
 
 func is_same(other: Player) -> bool:
-	return self.number == other.number
+	return other and self.number == other.number
 
 
 func has_ball() -> bool:
@@ -90,7 +90,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func _on_ball_possession_body_entered(body: Node2D) -> void:
-	if body is Ball and not has_ball_owner_nearby:
+	if body is Ball:
 		ball = body
 		EventBus.ball_possession_change.emit(self)
 		if (
@@ -136,30 +136,5 @@ func _on_tick_timeout() -> void:
 		decision = Ai.Decision.Defense
 		target = defense_position + variation
 
-
-var has_ball_owner_nearby = false
-func _on_nearby_body_entered(body: Node2D) -> void:
-	if body is Player and not self.is_same(body):
-		if body.has_ball() and body.team == self.team:
-			print_debug("player %s detected teammate with ball %s" % [ self.number, body.number])
-			has_ball_owner_nearby = true
-
-func _on_nearby_body_exited(body: Node2D) -> void:
-	if body is Player and not self.is_same(body):
-		if body.has_ball() and body.team == self.team:
-			print_debug("player %s detected teammate with ball %s leaving" % [ self.number, body.number])
-			has_ball_owner_nearby = false
-
 func same_team(other: Player) -> bool:
 	return other and self.team == other.team
-
-func _on_zone_body_entered(body: Node2D) -> void:
-	if body is Ball and not self.same_team(MatchState.ball_owner):
-		print("ball entered")
-		decision = Ai.Decision.ChaseBall
-		target = body.global_position
-
-
-func _on_zone_body_exited(body: Node2D) -> void:
-	if body is Ball and not self.same_team(MatchState.ball_owner):
-		decision = Ai.Decision.Wait

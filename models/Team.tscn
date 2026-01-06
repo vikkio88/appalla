@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://vy8rn5diyeev"]
+
+[ext_resource type="Script" uid="uid://b2yus7ljynsrb" path="res://models/team.gd" id="1_33cy0"]
+[ext_resource type="PackedScene" uid="uid://bq5b1vqhu0asi" path="res://models/actors/players/Player.tscn" id="1_556fo"]
+
+[node name="Team" type="Node"]
+script = ExtResource("1_33cy0")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="2" parent="Players" instance=ExtResource("1_556fo")]
+position = Vector2(216, 402)
+number = 2
+defense_position = Vector2(216, 400)
+attack_position = Vector2(400, 450)
+
+[node name="5" parent="Players" instance=ExtResource("1_556fo")]
+position = Vector2(258, 242)
+number = 5
+defense_position = Vector2(250, 240)
+attack_position = Vector2(400, 180)
+
+[node name="7" parent="Players" instance=ExtResource("1_556fo")]
+position = Vector2(524, 83)
+number = 7
+defense_position = Vector2(460, 160)
+attack_position = Vector2(1010, 80)
+
+[node name="8" parent="Players" instance=ExtResource("1_556fo")]
+position = Vector2(421, 332)
+number = 8
+defense_position = Vector2(450, 335)
+attack_position = Vector2(670, 335)
+
+[node name="9" parent="Players" instance=ExtResource("1_556fo")]
+position = Vector2(487, 559)
+number = 9
+defense_position = Vector2(470, 490)
+attack_position = Vector2(990, 525)
+
+[node name="10" parent="Players" instance=ExtResource("1_556fo")]
+position = Vector2(549, 352)
+number = 10
+defense_position = Vector2(550, 350)
+attack_position = Vector2(1045, 345)
