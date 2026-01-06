@@ -21,6 +21,7 @@ func push(direction: Vector2, force: float, player: Player):
 func shoot(direction: Vector2, force: float, player: Player):
 	velocity = direction * force
 	last_touched_by = player
+	MatchState.ball_owner = null
 	#EventBus.ball_possession_change.emit(null)
 
 

@@ -1,7 +1,5 @@
 extends Node2D
 
-const CENTER = Vector2(607, 355)
-
 @onready var selected_player: Player
 @onready var ball: Node2D = $Ball
 @onready var charger: ProgressBar = $charger
@@ -25,7 +23,7 @@ func _ready() -> void:
 
 func goal(player: Player, side: Enums.TeamSide):
 	print_debug("goal! side: %s player: %s" % [side, player.number])
-	ball.global_position = CENTER
+	ball.global_position = Vars.CENTER
 
 func closest_player(players: Array, ball_position: Vector2) -> Player:
 	var closest: Player = null

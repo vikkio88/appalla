@@ -120,7 +120,8 @@ func _on_tick_timeout() -> void:
 	if (has_ball() and self.team == MatchState.user_side) or is_selected:
 		return
 	
-	if decision == Ai.Decision.ChaseBall and MatchState.ball_position.distance_to(global_position) < TARGET_NEARBY * 20:
+	if decision == Ai.Decision.ChaseBall:
+		target = MatchState.ball_position
 		return
 	
 	var variation := Vector2(
@@ -128,7 +129,7 @@ func _on_tick_timeout() -> void:
 			randf_range(-position_variation, position_variation)
 		)
 	
-	if MatchState.ball_owner and MatchState.ball_owner.team == self.team and MatchState.ball_position.x > 650:
+	if (same_team(MatchState.ball_owner) and MatchState.ball_position.x > Vars.CENTER.x) or MatchState.ball_position.x > Vars.CENTER.x:
 		decision = Ai.Decision.Attack
 		target = attack_position + variation
 	else:
@@ -137,14 +138,28 @@ func _on_tick_timeout() -> void:
 
 
 var has_ball_owner_nearby = false
-func _on_detector_body_entered(body: Node2D) -> void:
+func _on_nearby_body_entered(body: Node2D) -> void:
 	if body is Player and not self.is_same(body):
 		if body.has_ball() and body.team == self.team:
 			print_debug("player %s detected teammate with ball %s" % [ self.number, body.number])
 			has_ball_owner_nearby = true
 
-func _on_detector_body_exited(body: Node2D) -> void:
+func _on_nearby_body_exited(body: Node2D) -> void:
 	if body is Player and not self.is_same(body):
 		if body.has_ball() and body.team == self.team:
 			print_debug("player %s detected teammate with ball %s leaving" % [ self.number, body.number])
 			has_ball_owner_nearby = false
+
+func same_team(other: Player) -> bool:
+	return other and self.team == other.team
+
+func _on_zone_body_entered(body: Node2D) -> void:
+	if body is Ball and not self.same_team(MatchState.ball_owner):
+		print("ball entered")
+		decision = Ai.Decision.ChaseBall
+		target = body.global_position
+
+
+func _on_zone_body_exited(body: Node2D) -> void:
+	if body is Ball and not self.same_team(MatchState.ball_owner):
+		decision = Ai.Decision.Wait
