@@ -28,3 +28,4 @@ func closest_player(selected_player: Player, ball_position: Vector2) -> Player:
 
 func _ready() -> void:
 	is_user_team = MatchState.user_side == side
+	

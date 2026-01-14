@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var selected_player: Player
-@onready var ball: Node2D = $Ball
+@onready var ball: Ball = $Ball
 @onready var charger: ProgressBar = $charger
 @onready var pitch_sides = {
 	Enums.TeamSide.Home: $Home, Enums.TeamSide.Away: $Away.get_children()
@@ -50,6 +50,11 @@ func player_was_clicked(player: Player):
 
 
 func ball_possession_changed(player: Player):
+	if not player:
+		MatchState.ball_owner = null
+		return
+	ball.owned()
+	
 	if selected_player and not selected_player.is_same(player):
 		selected_player.stop()
 	print("%s has the ball" % [player.number])

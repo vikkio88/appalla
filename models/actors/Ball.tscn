@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bw65aj61jo6am"]
 
-[ext_resource type="Texture2D" uid="uid://buv0nin804olc" path="res://models/actors/sprites/ball.png" id="1_6oxlb"]
+[ext_resource type="Texture2D" uid="uid://bv6bmg3h83ph2" path="res://models/actors/sprites/ball.png" id="1_6oxlb"]
 [ext_resource type="Script" uid="uid://dojne5or4cvhn" path="res://models/actors/ball.gd" id="1_a0r7x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a0r7x"]
@@ -13,3 +13,9 @@ shape = SubResource("CircleShape2D_a0r7x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6oxlb")
+
+[node name="reset" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="timeout" from="reset" to="." method="_on_reset_timeout"]

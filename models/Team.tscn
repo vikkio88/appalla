@@ -1,45 +1,76 @@
-[gd_scene load_steps=3 format=3 uid="uid://vy8rn5diyeev"]
+[gd_scene load_steps=4 format=3 uid="uid://vy8rn5diyeev"]
 
 [ext_resource type="Script" uid="uid://b2yus7ljynsrb" path="res://models/team.gd" id="1_33cy0"]
 [ext_resource type="PackedScene" uid="uid://bq5b1vqhu0asi" path="res://models/actors/players/Player.tscn" id="1_556fo"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33cy0"]
+bg_color = Color(0.6812244, 0.6155172, 0.069222584, 1)
+
 [node name="Team" type="Node"]
 script = ExtResource("1_33cy0")
+side = null
 
 [node name="Players" type="Node" parent="."]
 
 [node name="2" parent="Players" instance=ExtResource("1_556fo")]
 position = Vector2(216, 402)
 number = 2
+team = 0
 defense_position = Vector2(216, 400)
 attack_position = Vector2(400, 450)
+position_variation = 40
 
 [node name="5" parent="Players" instance=ExtResource("1_556fo")]
 position = Vector2(258, 242)
 number = 5
+team = 0
 defense_position = Vector2(250, 240)
 attack_position = Vector2(400, 180)
+position_variation = 40
 
 [node name="7" parent="Players" instance=ExtResource("1_556fo")]
 position = Vector2(524, 83)
 number = 7
+team = 0
 defense_position = Vector2(460, 160)
 attack_position = Vector2(1010, 80)
+position_variation = 40
 
 [node name="8" parent="Players" instance=ExtResource("1_556fo")]
 position = Vector2(421, 332)
 number = 8
+team = 0
 defense_position = Vector2(450, 335)
 attack_position = Vector2(670, 335)
+position_variation = 40
 
 [node name="9" parent="Players" instance=ExtResource("1_556fo")]
 position = Vector2(487, 559)
 number = 9
+team = 0
 defense_position = Vector2(470, 490)
 attack_position = Vector2(990, 525)
+position_variation = 40
 
 [node name="10" parent="Players" instance=ExtResource("1_556fo")]
 position = Vector2(549, 352)
 number = 10
+team = 0
 defense_position = Vector2(550, 350)
 attack_position = Vector2(1045, 345)
+position_variation = 40
+
+[node name="tick" type="Timer" parent="."]
+autostart = true
+
+[node name="charger" type="ProgressBar" parent="."]
+visible = false
+offset_left = -25.0
+offset_top = 1.0
+offset_right = 25.0
+offset_bottom = 11.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_33cy0")
+rounded = true
+show_percentage = false
+
+[connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]

@@ -23,7 +23,8 @@ var decision: Ai.Decision = Ai.Decision.Wait
 
 var is_selected := false:
 	set(new_value):
-		stop()
+		#this prevent the push
+		#stop()
 		is_selected = new_value
 		select_indicator.visible = new_value
 	get:
@@ -124,17 +125,20 @@ func _on_tick_timeout() -> void:
 		target = MatchState.ball_position
 		return
 	
-	var variation := Vector2(
-			randf_range(-position_variation, position_variation),
-			randf_range(-position_variation, position_variation)
-		)
-	
-	if (same_team(MatchState.ball_owner) and MatchState.ball_position.x > Vars.CENTER.x) or MatchState.ball_position.x > Vars.CENTER.x:
-		decision = Ai.Decision.Attack
+	var variation := Rng.vec2(position_variation)
+	if decision == Ai.Decision.Attack:
 		target = attack_position + variation
 	else:
 		decision = Ai.Decision.Defense
 		target = defense_position + variation
+
+
+func attack():
+	var variation := Rng.vec2(position_variation)
+	if (same_team(MatchState.ball_owner) and MatchState.ball_position.x > Vars.CENTER.x) or MatchState.ball_position.x > Vars.CENTER.x:
+		decision = Ai.Decision.Attack
+		target = attack_position + variation
+	
 
 func same_team(other: Player) -> bool:
 	return other and self.team == other.team
