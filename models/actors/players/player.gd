@@ -124,21 +124,21 @@ func _on_tick_timeout() -> void:
 	if decision == Ai.Decision.ChaseBall:
 		target = MatchState.ball_position
 		return
-	
-	var variation := Rng.vec2(position_variation)
-	if decision == Ai.Decision.Attack:
-		target = attack_position + variation
-	else:
-		decision = Ai.Decision.Defense
-		target = defense_position + variation
 
 
 func attack():
 	var variation := Rng.vec2(position_variation)
-	if (same_team(MatchState.ball_owner) and MatchState.ball_position.x > Vars.CENTER.x) or MatchState.ball_position.x > Vars.CENTER.x:
-		decision = Ai.Decision.Attack
-		target = attack_position + variation
-	
+	decision = Ai.Decision.Attack
+	target = attack_position + variation
+
+func defend():
+	var variation := Rng.vec2(position_variation)
+	decision = Ai.Decision.Attack
+	target = attack_position + variation
+
+func chase(ball_pos: Vector2):
+	decision = Ai.Decision.ChaseBall
+	target = ball_pos
 
 func same_team(other: Player) -> bool:
 	return other and self.team == other.team

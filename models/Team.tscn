@@ -8,7 +8,6 @@ bg_color = Color(0.6812244, 0.6155172, 0.069222584, 1)
 
 [node name="Team" type="Node"]
 script = ExtResource("1_33cy0")
-side = null
 
 [node name="Players" type="Node" parent="."]
 
